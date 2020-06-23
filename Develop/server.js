@@ -1,20 +1,23 @@
-// Dependencies
+// 1. Dependencies
 const express = require("express");
 
-// Sets up the Express App
+// 2. I'm creating an 'express' server called app
 const app = express();
-const PORT = 3000;
 
-// Sets up the Express app to handle data parsing
-app.use(express.urlencoded({
-    extended: true
-}));
+// 3. Sets a port or run at 7000, Later listener will listen this
+const PORT = process.env.PORT || 7000;
+
+//4. Use a middleware to parse the JSON data
+app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
+//what folder the browser can see
 app.use(express.static("public"));
 
-require("./apiRoutes")(app);
-require("./htmlRoutes")(app);
+//5. Bring routes
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
 
+//6. Listener
 app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+    console.log("App listening on PORT: " + PORT);
 });
